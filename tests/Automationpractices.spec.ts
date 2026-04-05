@@ -177,3 +177,17 @@ test('Drag something  ',  async({page})=>{
   await expect(boxB).toHaveText('A');  
 
 })
+test ('Drag and Drop circles ', async({page})=>{
+  await page.goto('https://practice.expandtesting.com/drag-and-drop-circles')
+  const circle1 = page.locator('.red');  
+  const circle2 = page.locator('.blue');
+  const circle3 = page.locator('.green');
+  const Target = page.locator('#target');
+  // Drag circle 1 to 2 to 3 to Target
+  await circle1.dragTo(Target);
+  await expect(Target).toContainText('Red');
+  await circle2.dragTo(Target);
+  await expect(Target).toContainText('RedBlue');
+  await circle3.dragTo(Target);
+  await expect(Target).toContainText('RedBlueGreen');
+})
