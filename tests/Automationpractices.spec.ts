@@ -15,7 +15,7 @@ test('Test input Field', async ({ page }) => {
     await expect(numberArrowUp).toHaveValue('101')
     for (let i = 0; i < 10; i++) {
     await numberArrowUp.press('ArrowUp');
-    await page.waitForTimeout(500);
+    await page.waitForTimeout(200);
     await expect(numberArrowUp).toHaveValue(String(102 + i));
   }
       await expect(numberArrowUp).toHaveValue('111');
@@ -26,23 +26,23 @@ test('Test input Field', async ({ page }) => {
     await expect(numberArrowDown).toHaveValue('110')
     for (let i = 0; i < 10; i++) {
     await numberArrowDown.press('ArrowDown');
-    await page.waitForTimeout(500);
+    await page.waitForTimeout(200);
     await expect(numberArrowDown).toHaveValue(String(109 - i));
   }
       await expect(numberArrowDown).toHaveValue('100');
 
   // Input Text
-  const textInput = page.locator('input[type="text"]').nth(0);
-  await textInput.fill('hello automation');
-  await expect(textInput).toHaveValue('hello automation');
+    const inputText = page.getByRole('textbox', { name: 'Input: Text' })
+    await inputText.fill("A Lannister always pays his debts")
+    await expect(inputText).toHaveValue('A Lannister always pays his debts')
 
   // Input Password
-  const passwordInput = page.locator('input[type="password"]');
-  await passwordInput.fill('abc123');
-  await expect(passwordInput).toHaveValue('abc123');
+  const passwordInput = page.getByRole('textbox', { name: 'Input: Password' })
+  await passwordInput.fill('password123');
+  await expect(passwordInput).toHaveValue('password123');
 
   // Input Date
-  const dateInput = page.locator('input[type="date"]');
+  const dateInput = page.getByRole('textbox', { name: 'Input: Date' })
   await dateInput.fill('2025-04-10');
   await expect(dateInput).toHaveValue('2025-04-10');
 });
