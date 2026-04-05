@@ -1,13 +1,6 @@
 import { test, expect, request } from '@playwright/test'
-import { getDefaultSettings } from 'node:http2'
-hehehehehe 
-asdasd'
-fsdg
-getDefaultSettings
-dsfgdsfg
-dfgsdfg
+test('Test for web input', async ({page}) =>{
 
-getDefaultSettingsdsfg
+    await page.goto('https://practice.expandtesting.com/inputs');
 
-getDefaultSettings
-gdfsgdsfgdfsgsdf
+})
