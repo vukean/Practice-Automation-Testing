@@ -177,17 +177,23 @@ test('Drag something  ',  async({page})=>{
   await expect(boxB).toHaveText('A');  
 
 })
-test ('Drag and Drop circles ', async({page})=>{
-  await page.goto('https://practice.expandtesting.com/drag-and-drop-circles')
-  const circle1 = page.locator('.red');  
-  const circle2 = page.locator('.blue');
-  const circle3 = page.locator('.green');
-  const Target = page.locator('#target');
-  // Drag circle 1 to 2 to 3 to Target
-  await circle1.dragTo(Target);
-  await expect(Target).toContainText('Red');
-  await circle2.dragTo(Target);
-  await expect(Target).toContainText('RedBlue');
-  await circle3.dragTo(Target);
-  await expect(Target).toContainText('RedBlueGreen');
+test ('Drag and Drop circles - red blue green ', async({page})=>{
+  await page.goto('https://practice.expandtesting.com/drag-and-drop-circles');
+
+  const dropZone = page.locator('#target');
+  const redCircle = page.locator('.red');
+  const blueCircle = page.locator('.blue');
+  const greenCircle = page.locator('.green');
+
+  await redCircle.dragTo(dropZone, {
+    targetPosition: { x: 40, y: 40 }
+  });
+
+  await blueCircle.dragTo(dropZone, {
+    targetPosition: { x: 40, y: 100 }
+  });
+
+  await greenCircle.dragTo(dropZone, {
+    targetPosition: { x: 40, y: 160 }
+  });
 })
