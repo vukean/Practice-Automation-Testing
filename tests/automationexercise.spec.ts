@@ -233,3 +233,7 @@ test('Test case 8: Verify All Products and product detail page',async({page})=>{
     await expect(productInfo.locator('p').filter({ hasText: 'Condition:' })).toContainText(/Condition:\s*.+/);
     await expect(productInfo.locator('p').filter({ hasText: 'Brand:' })).toContainText(/Brand:\s*.+/);
 })
+test('Test case 9: Search product',async({page})=>{
+    await page.goto("https://automationexercise.com/")
+    
+})
