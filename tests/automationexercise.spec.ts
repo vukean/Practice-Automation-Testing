@@ -211,3 +211,10 @@ test('Test case 7: Verify Test Cases Page',async({page})=>{
     await page.getByRole('link', { name: ' Test Cases' }).click();
     await expect(page).toHaveURL('https://automationexercise.com/test_cases');
 })
+test('Test case 8: Verify All Products and product detail page',async({page})=>{
+    await page.goto("https://automationexercise.com/")
+    await page.getByRole('link', { name: ' Products' }).click();
+    await expect(page).toHaveURL('https://automationexercise.com/products');
+    await expect(page.getByText('All Products  Added! Your')).toBeVisible();
+    await expect(page.locator('.features_items')).toBeVisible();
+})
