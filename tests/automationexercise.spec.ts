@@ -137,8 +137,6 @@ test('Test case 2: Login User with correct email and password', async ({ page })
         await page.getByRole('textbox', { name: 'Password' }).fill(password);
         await page.getByRole('button', { name: 'Login' }).click();
         await expect(page.getByText('Logged in as ' + username)).toBeVisible();
-<<<<<<< HEAD
-=======
 
 })
 test('Test ca 3: Login user with incorrect email and password',async({page})=>{
@@ -241,6 +239,4 @@ test('Test case 9: Search product',async({page})=>{
     await expect(page).toHaveURL('https://automationexercise.com/products');
     await page.getByRole('textbox', { name: 'Search Product' }).fill('Blue Top');
     await page.getByRole('button', { name: 'Search' }).click();
-    
->>>>>>> 910edcbee32853b35013f87e5a779289d466a19f
 })
