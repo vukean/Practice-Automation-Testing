@@ -214,6 +214,11 @@ test('Test case 7: Verify Test Cases Page',async({page})=>{
 test('Test case 8: Verify All Products and product detail page',async({page})=>{
     await page.goto("https://automationexercise.com/")
     await page.getByRole('link', { name: ' Products' }).click();
+    await expect(page).toHaveURL('https://automationexercise.com/products');
     await expect(page.locator('.features_items')).toBeVisible();
     await expect(page.locator('.product-image-wrapper').first()).toBeVisible();
+    //basically those 2 lines are doing the same things, but the first one is more specific and the second one is more general, so I will use the first one.
+    await page.getByRole('link', { name: ' View Product' }).first().click();
+    // await page.getByText('View Product').first().click();
+    await expect(page.locator('.product-information')).toBeVisible();
 })
