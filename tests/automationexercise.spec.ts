@@ -220,5 +220,16 @@ test('Test case 8: Verify All Products and product detail page',async({page})=>{
     //basically those 2 lines are doing the same things, but the first one is more specific and the second one is more general, so I will use the first one.
     await page.getByRole('link', { name: ' View Product' }).first().click();
     // await page.getByText('View Product').first().click();
-    await expect(page.locator('.product-information')).toBeVisible();
+
+    // verify product detail page, including: product name, category, price, availability, condition and brand
+    const productInfo = page.locator('.product-information');
+    await expect(productInfo).toBeVisible();
+    await expect(productInfo.locator('h2')).toBeVisible();
+    await expect(productInfo.locator('h2')).not.toHaveText('');
+    await expect(productInfo.locator('p').filter({ hasText: 'Category:' })).toContainText(/Category:\s*.+/);
+    // await expect(productInfo).toContainText(/Rs\.\s*\d+/);
+    await expect(productInfo.locator('span').filter({ hasText: 'Rs.' }).first()).toContainText(/Rs\.\s*\d+/);
+    await expect(productInfo.locator('p').filter({ hasText: 'Availability:' })).toContainText(/Availability:\s*.+/);
+    await expect(productInfo.locator('p').filter({ hasText: 'Condition:' })).toContainText(/Condition:\s*.+/);
+    await expect(productInfo.locator('p').filter({ hasText: 'Brand:' })).toContainText(/Brand:\s*.+/);
 })
