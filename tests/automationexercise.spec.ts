@@ -1,6 +1,12 @@
 import { test, expect } from '@playwright/test';
 import { faker } from '@faker-js/faker';
 
+
+//This is a note: Correct account was create but cannot delete account
+// anvuke2001@gmail.com
+// password: 123
+//
+
 test('Test case 1: Register New User', async ({ page }) => {
         const username = `${faker.person.firstName().toLowerCase()}${faker.number.int({ min: 100, max: 999 })}`;
         const email = faker.internet.email();
@@ -131,4 +137,110 @@ test('Test case 2: Login User with correct email and password', async ({ page })
         await page.getByRole('textbox', { name: 'Password' }).fill(password);
         await page.getByRole('button', { name: 'Login' }).click();
         await expect(page.getByText('Logged in as ' + username)).toBeVisible();
+<<<<<<< HEAD
+=======
+
+})
+test('Test ca 3: Login user with incorrect email and password',async({page})=>{
+    const inValidusername = `${faker.internet.email().toLowerCase()}${faker.number.int({ min: 100, max: 999 })}`;
+    const inValidpassword = 'InvalidPassword123';
+    await page.goto("https://automationexercise.com/");
+    await page.getByRole('link', { name: ' Signup / Login' }).click();
+    await expect(page.getByRole('heading', { name: 'Login to your account' })).toBeVisible();
+    await page.locator('form').filter({ hasText: 'Login' }).getByPlaceholder('Email Address').fill(inValidusername);
+    await page.getByRole('textbox', { name: 'Password' }).fill(inValidpassword);
+    await page.getByRole('button', { name: 'Login' }).click();
+    await expect(page.getByText('Your email or password is incorrect!')).toBeVisible();
+})
+test('Test case 4: Logout User',async({page})=>{
+    const name= 'vukean'
+    const username = 'anvuke2001@gmail.com'
+    const password = '123'
+    await page.goto("https://www.automationexercise.com/") 
+    await page.getByRole('link', { name: ' Signup / Login' }).click();
+    await expect(page.getByRole('link', { name: 'Website for automation' })).toBeVisible();
+    await page.locator('form').filter({ hasText: 'Login' }).getByPlaceholder('Email Address').fill(username);
+    await page.getByRole('textbox', { name: 'Password' }).fill(password);
+    await page.getByRole('button', { name: 'Login' }).click();
+    await expect(page.getByText('Logged in as ' + name)).toBeVisible();
+    await page.getByRole('link', { name: ' Logout' }).click();
+    await expect(page).toHaveURL('https://www.automationexercise.com/login')
+})
+test('Test case 5: Register New User with existing email',async({page})=>{
+    const name = 'vukean'
+    const username = 'anvuke2001@gmail.com'
+    const password = '123'
+        await page.goto("https://www.automationexercise.com/") 
+        await page.getByRole('link', { name: ' Signup / Login' }).click();
+        await expect(page.getByRole('heading', { name: 'New User Signup!' })).toBeVisible();
+        await page.getByRole('textbox', { name: 'Name' }).fill(name);
+        await page.locator('form').filter({ hasText: 'Signup' }).getByPlaceholder('Email Address').fill(username);
+        await page.getByRole('button', { name: 'Signup' }).click();
+        await expect(page.getByText('Email Address already exist!', {exact: true})).toBeVisible();
+    })
+test('Test case 6: Contact Us Form',async({page})=>{
+    const name = 'vukean'
+    const email = 'anvuke2001@gmail.com'
+    await page.goto("https://automationexercise.com/" )
+    await page.getByRole('link', { name: ' Contact us' }).click();
+    await expect(page).toHaveURL('https://automationexercise.com/contact_us', { exact: true });
+    await expect(page.getByRole('heading', { name: 'Get In Touch' })).toBeVisible();
+    await page.getByRole('textbox', { name: 'Name' }).fill(name);
+    await expect(page.getByRole('textbox', { name: 'Name' })).toHaveValue(name);
+    await page.getByRole('textbox', { name: 'Email', exact: true }).fill(email);
+    await expect(page.getByRole('textbox', { name: 'Email', exact: true })).toHaveValue(email);
+    await page.getByRole('textbox', { name: 'Subject' }).fill('Test Contact Us Form');
+    await expect(page.getByRole('textbox', { name: 'Subject' })).toHaveValue('Test Contact Us Form');
+    await page.getByRole('textbox', { name: 'Your Message Here' }).fill('This is a test message for the Contact Us form.', { exact: true });
+    await expect(page.getByRole('textbox', { name: 'Your Message Here' })).toHaveValue('This is a test message for the Contact Us form.', { exact: true });
+    await page.getByRole('button', { name: 'Choose File' }).setInputFiles('D:/Project/Practice-Automation-Testing/d45f3f2e80ec85d75fc934294dd1d836.jpg');
+    await expect(page.getByRole('button', { name: 'Choose File' })).toHaveValue('C:\\fakepath\\d45f3f2e80ec85d75fc934294dd1d836.jpg');
+
+        await page.waitForTimeout(3000);
+  page.on('dialog', async dialog => {
+    expect(dialog.type()).toBe('confirm');
+    expect(dialog.message()).toBe('Press OK to proceed!', { exact: true });
+    await dialog.accept();
+  });
+    await page.getByRole('button', { name: 'Submit' }).click();
+    await expect(page.locator('#contact-page').getByText('Success! Your details have been submitted successfully.', { exact: true })).toBeVisible();
+    await page.getByRole('link', { name: ' Home' }).click();
+    await expect(page).toHaveURL('https://automationexercise.com/')
+})
+test('Test case 7: Verify Test Cases Page',async({page})=>{
+    await page.goto("https://automationexercise.com/")
+    await page.getByRole('link', { name: ' Test Cases' }).click();
+    await expect(page).toHaveURL('https://automationexercise.com/test_cases');
+})
+test('Test case 8: Verify All Products and product detail page',async({page})=>{
+    await page.goto("https://automationexercise.com/")
+    await page.getByRole('link', { name: ' Products' }).click();
+    await expect(page).toHaveURL('https://automationexercise.com/products');
+    await expect(page.locator('.features_items')).toBeVisible();
+    await expect(page.locator('.product-image-wrapper').first()).toBeVisible();
+    //basically those 2 lines are doing the same things, but the first one is more specific and the second one is more general, so I will use the first one.
+    await page.getByRole('link', { name: ' View Product' }).first().click();
+    // await page.getByText('View Product').first().click();
+
+    // verify product detail page, including: product name, category, price, availability, condition and brand
+    const productInfo = page.locator('.product-information');
+    await expect(productInfo).toBeVisible();
+    await expect(productInfo.locator('h2')).toBeVisible();
+    await expect(productInfo.locator('h2')).not.toHaveText('');
+    await expect(productInfo.locator('p').filter({ hasText: 'Category:' })).toContainText(/Category:\s*.+/);
+    // await expect(productInfo).toContainText(/Rs\.\s*\d+/);
+    await expect(productInfo.locator('span').filter({ hasText: 'Rs.' }).first()).toContainText(/Rs\.\s*\d+/);
+    await expect(productInfo.locator('p').filter({ hasText: 'Availability:' })).toContainText(/Availability:\s*.+/);
+    await expect(productInfo.locator('p').filter({ hasText: 'Condition:' })).toContainText(/Condition:\s*.+/);
+    await expect(productInfo.locator('p').filter({ hasText: 'Brand:' })).toContainText(/Brand:\s*.+/);
+})
+test('Test case 9: Search product',async({page})=>{
+    await page.goto("https://automationexercise.com/")
+    // await page.locator('ul.navbar-nav').locator('a[href="/products"]').click();
+    await page.getByRole('link', { name: ' Products' }).click();
+    await expect(page).toHaveURL('https://automationexercise.com/products');
+    await page.getByRole('textbox', { name: 'Search Product' }).fill('Blue Top');
+    await page.getByRole('button', { name: 'Search' }).click();
+    
+>>>>>>> 910edcbee32853b35013f87e5a779289d466a19f
 })
