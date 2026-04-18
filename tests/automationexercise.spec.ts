@@ -206,3 +206,8 @@ test('Test case 6: Contact Us Form',async({page})=>{
     await page.getByRole('link', { name: ' Home' }).click();
     await expect(page).toHaveURL('https://automationexercise.com/')
 })
+test('Test case 7: Verify Test Cases Page',async({page})=>{
+    await page.goto("https://automationexercise.com/")
+    await page.getByRole('link', { name: ' Test Cases' }).click();
+    await expect(page).toHaveURL('https://automationexercise.com/test_cases');
+})
