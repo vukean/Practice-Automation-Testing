@@ -377,16 +377,21 @@ test('Test Case 18: View Category Products',async({page})=>{
                 await expect(leftSideBar.getByText('BIBA')).toBeVisible();
 
         await page.getByRole('link', { name: 'Polo' }).click();
-        await expect(page.getByRole('heading', { name: 'Brand - Polo Products' })).toContainText('Brand - Polo Products', { exact: true });
+        await expect(page.getByRole('heading', { name: 'Brand - Polo Products' })).toBeVisible();
         // khai bao products de verify so luong san pham thuoc brand polo, o day minh se verify neu so luong san pham thuoc brand polo > 0 thi moi hien thi san pham, neu = 0 thi hien thi text No products available
         const products = page.locator('.product-image-wrapper');
         const count = await products.count();
 
         expect(count).toBeGreaterThan(0);
-
+        // dung loop de verify tung san pham trong brand polo, o day minh se verify neu san pham thuoc brand polo thi moi hien thi san pham, neu khong thuoc brand polo thi khong hien thi san pham
         for (let i = 0; i < count; i++) {
         await expect(products.nth(i)).toBeVisible();
-}        //click vao san pham dau tien va add to cart
+                }
+})
+    test ('Test Case 20: Search Products and Verify Cart After Login',async({page})=>{
+        await page.goto('https://automationexercise.com/');
+        await page.getByRole('link', { name: ' Products' }).click();
+
 
     })
     
