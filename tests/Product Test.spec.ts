@@ -444,3 +444,6 @@ test ('API 4 - PUT to all BRAND list', async ({ request }) => {
     expect(responseBody.responseCode).toBe(405);// o day minh van verify = 405 thay vi 200 vi API bi loi nen no tra ve 200, nhung trong response body thi responseCode moi la 405 moi dung
     expect(responseBody.message).toBe('This request method is not supported.');
 }) 
+test ('API 5: POST To Search Products', async ({ request }) => {
+    const response = await request.post('https://automationexercise.com/api/searchProduct', {
+        
