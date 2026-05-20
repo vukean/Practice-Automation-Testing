@@ -388,10 +388,27 @@ test('Test Case 18: View Category Products',async({page})=>{
         await expect(products.nth(i)).toBeVisible();
                 }
 })
-    test ('Test Case 20: Search Products and Verify Cart After Login',async({page})=>{
-        await page.goto('https://automationexercise.com/');
-        await page.getByRole('link', { name: ' Products' }).click();
+/// FROM THIS LINE, IT API TESTING, NOT UI TESTING
 
+test('API 1 - Get all products list', async ({ request }) => {
+    const response = await request.get('https://automationexercise.com/api/productsList');
 
-    })
-    
+    // Verify status code
+  expect(response.status()).toBe(200);
+
+  // Parse JSON response
+  const responseBody = await response.json();
+
+  // Verify response body exists
+  expect(responseBody).toBeTruthy();
+
+  // print response
+  console.log(responseBody);
+
+  // Verify products array exists
+  expect(responseBody.products).toBeDefined(); // expect products phai ton tai trong response body
+  expect(Array.isArray(responseBody.products)).toBeTruthy(); //expects products phai la 1 mang
+
+  // Verify at least one product exists
+  expect(responseBody.products.length).toBeGreaterThan(0);
+});
