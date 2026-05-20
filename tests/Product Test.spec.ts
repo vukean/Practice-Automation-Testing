@@ -412,3 +412,35 @@ test('API 1 - Get all products list', async ({ request }) => {
   // Verify at least one product exists
   expect(responseBody.products.length).toBeGreaterThan(0);
 });
+test('API 2 - POST to all products list', async ({ request }) => {
+  const response = await request.post('https://automationexercise.com/api/productsList');
+
+  expect(response.status()).toBe(200);// no phai suppose = 405 vi API productsList chi support GET method, neu POST thi se bao loi 405 method not allowed, nhung do API bi loi nen no tra ve 200
+
+  const responseBody = await response.json();
+  console.log(responseBody);
+
+  expect(responseBody).toBeDefined();
+  expect(responseBody.responseCode).toBe(405);
+  expect(responseBody.message).toBe('This request method is not supported.');
+});
+test ('API 3 - Get all BRAND list', async ({ request }) => {
+    const response = await request.get('https://automationexercise.com/api/brandsList');
+
+    expect(response.status()).toBe(200);
+    const responseBody = await response.json();
+    console.log(responseBody);
+    expect(responseBody).toBeTruthy(); 
+    expect(responseBody.brands).toBeDefined();
+    expect(Array.isArray(responseBody.brands)).toBeTruthy();
+    expect(responseBody.brands.length).toBeGreaterThan(0);
+})
+test ('API 4 - PUT to all BRAND list', async ({ request }) => {
+    const response = await request.put('https://automationexercise.com/api/brandsList');
+    expect(response.status()).toBe(200); // no phai suppose = 405 vi API brandsList chi support GET method, neu PUT thi se bao loi 405 method not allowed, nhung do API bi loi nen no tra ve 200
+    const responseBody = await response.json();
+    console.log(responseBody);
+    expect(responseBody).toBeDefined();
+    expect(responseBody.responseCode).toBe(405);// o day minh van verify = 405 thay vi 200 vi API bi loi nen no tra ve 200, nhung trong response body thi responseCode moi la 405 moi dung
+    expect(responseBody.message).toBe('This request method is not supported.');
+}) 
